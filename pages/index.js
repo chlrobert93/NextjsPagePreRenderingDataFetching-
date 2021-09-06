@@ -20,6 +20,7 @@ function HomePage(props) {
 //Se ejecuta primero y despues el componenente 
 //Ejecutar cualquier código  nunca sera visible del lado del cliente
 export async function getStaticProps() {
+  console.log('Re Generating..')
   //Definir la ruta 
   //process está disponible globalmente en el nodo JS y podemos ejecutar cwd
  const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json');
@@ -35,6 +36,8 @@ export async function getStaticProps() {
       //products: [{ id: "1", title: "Product  1" }],
       products: data.products,
     },
+    //Deve volver a generarse
+    revalidate: 10
   };
 }
 
