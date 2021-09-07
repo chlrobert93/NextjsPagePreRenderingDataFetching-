@@ -2,15 +2,16 @@
 import path from "path";
 //Módulo del sistema de archivos de node JS
 import fs from "fs/promises";
+import Link  from 'next/link';
 
 function HomePage(props) {
   const { products } = props;
-  console.log(products.length);
+  console.log(products);
 
   return (
     <ul>
       {products.map((product) => (
-        <li key={product.id}>{product.title}</li>
+        <li key={product.id}><Link href={`/${product.id}`}>{product.title}</Link></li>
       ))}
     </ul>
   );
@@ -19,6 +20,7 @@ function HomePage(props) {
 //Lo que hace esta función es preparar los props para su compoenente
 //Se ejecuta primero y despues el componenente
 //Ejecutar cualquier código  nunca sera visible del lado del cliente
+//Para pre renderizar la página
 export async function getStaticProps(context) {
   console.log("Re Generating..");
   //Definir la ruta
