@@ -2,16 +2,18 @@
 import path from "path";
 //Módulo del sistema de archivos de node JS
 import fs from "fs/promises";
-import Link  from 'next/link';
+import Link from "next/link";
 
 function HomePage(props) {
   const { products } = props;
-  console.log(products);
+  //console.log(products);
 
   return (
     <ul>
       {products.map((product) => (
-        <li key={product.id}><Link href={`/${product.id}`}>{product.title}</Link></li>
+        <li key={product.id}>
+          <Link href={`/${product.id}`}>{product.title}</Link>
+        </li>
       ))}
     </ul>
   );
@@ -30,25 +32,21 @@ export async function getStaticProps(context) {
   //JSON es un objecto diponible globalmente
   //Lo convierte en JavaScrit normal
   const data = JSON.parse(jsonData);
-  
-  console.log(!data);
-    //Redireccionamiento
-    if(!data){
-  
-      return{
-        redirect:{
-          destination: '/no-data'
-        }
-      }
-    }
 
-
+  //console.log(!data);
+  //Redireccionamiento
+  if (!data) {
+    return {
+      redirect: {
+        destination: "/no-data",
+      },
+    };
+  }
 
   //Comprobar si e objecto esta vacio
   if (data.products.length === 0) {
     return { notFound: true };
   }
-
 
   return {
     props: {

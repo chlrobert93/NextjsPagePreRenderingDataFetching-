@@ -6,6 +6,12 @@ import { Fragment } from "react";
 function ProductDetailpage(props) {
   const { loadedProduct } = props;
 
+  //console.log(loadedProduct);
+  //Comprobar si ya esta allí
+  if (!loadedProduct) {
+    return <p>Loading....</p>;
+  }
+
   return (
     <Fragment>
       <h1>{loadedProduct.title}</h1>
@@ -35,17 +41,13 @@ export async function getStaticProps(context) {
 }
 
 //El objetivo de esta función es decirle a Nextjs que instancias de está página dinámica debe ser generado
-  export async function getStaticPaths() {
-    return {
-      paths: [
-        { params: { pid: "p1" } },
-        { params: { pid: "p2" } },
-        { params: { pid: "p3" } },
-        { params: { pid: "p4" } },
-      ],
-      fallback: false
-    };
-  }
-
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { pid: "p1" } }],
+    fallback: true,
+    //Esperará para que esta página esté completamente en el servidor
+    // fallback: 'blocking'
+  };
+}
 
 export default ProductDetailpage;
