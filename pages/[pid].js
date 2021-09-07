@@ -39,6 +39,10 @@ export async function getStaticProps(context) {
   //filtrar
   const product = data.products.find((product) => product.id === productId);
 
+  if (!product) {
+    return { notFound };
+  }
+
   return {
     props: {
       loadedProduct: product,
@@ -55,7 +59,7 @@ export async function getStaticPaths() {
   return {
     //paths: [{ params: { pid: "p1" } }],
     path: params,
-    fallback: false,
+    fallback: true,
     //Esperará para que esta página esté completamente en el servidor
     // fallback: 'blocking'
   };
