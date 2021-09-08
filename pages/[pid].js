@@ -52,16 +52,16 @@ export async function getStaticProps(context) {
 
 //El objetivo de esta función es decirle a Nextjs que instancias de está página dinámica debe ser generado
 export async function getStaticPaths() {
-  const data = await getData();
-  const ids = data.products.map((product) => product.id);
-  const params = ids.map((id) => ({ params: { pod: id } }));
+ const data = await getData();
+ const ids = data.products.map(product => product.id);
+ const pathswithParams = ids.map((id) => ({ params: {pid: id }}));
 
   return {
     //paths: [{ params: { pid: "p1" } }],
-    path: params,
-    fallback: true,
+    path: pathswithParams,
+    //fallback: true,
     //Esperará para que esta página esté completamente en el servidor
-    // fallback: 'blocking'
+     fallback: 'blocking'
   };
 }
 
