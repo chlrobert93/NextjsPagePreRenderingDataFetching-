@@ -10,7 +10,7 @@ function ProductDetailpage(props) {
   //Comprobar si ya esta allí
   if (!loadedProduct) {
     return <p>Loading....</p>;
-  }
+   }
 
   return (
     <Fragment>
@@ -40,7 +40,7 @@ export async function getStaticProps(context) {
   const product = data.products.find((product) => product.id === productId);
 
   if (!product) {
-    return { notFound };
+    return { notFound: true };
   }
 
   return {
@@ -56,12 +56,13 @@ export async function getStaticPaths() {
  const ids = data.products.map(product => product.id);
  const pathswithParams = ids.map((id) => ({ params: {pid: id }}));
 
-  return {
+  return {    
     //paths: [{ params: { pid: "p1" } }],
-    path: pathswithParams,
+    paths: pathswithParams,
     //fallback: true,
     //Esperará para que esta página esté completamente en el servidor
      fallback: 'blocking'
+    // fallback: false,
   };
 }
 
